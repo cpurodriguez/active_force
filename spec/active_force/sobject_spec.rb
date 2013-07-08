@@ -38,6 +38,7 @@ describe ActiveForce::SObject do
 
     let(:sobject_id)         { '6253juye524' }
     let(:sobject_table_name) { Whizbang.table_name }
+    let(:sobject_fields)     { Whizbang.fields.join(', ') }
     let(:query)              { Whizbang.soql_find sobject_id }
 
     it "containt a valid SOQL format" do
@@ -54,6 +55,10 @@ describe ActiveForce::SObject do
 
     it 'find on the table_name' do
       expect(query).to match(/from #{sobject_table_name}/i)
+    end
+
+    it 'find the fields' do
+      expect(query).to match(/select #{sobject_fields}/i)
     end
   end
 end
