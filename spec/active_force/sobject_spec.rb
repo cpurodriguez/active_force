@@ -36,19 +36,24 @@ describe ActiveForce::SObject do
 
   describe ".soql_find" do
 
-    let(:sobject_id)   { '6253juye524' }
-    let(:query)        { Whizbang.soql_find sobject_id }
+    let(:sobject_id)         { '6253juye524' }
+    let(:sobject_table_name) { Whizbang.table_name }
+    let(:query)              { Whizbang.soql_find sobject_id }
 
     it "containt a valid SOQL format" do
       expect(query).to include(<<-SOQL.strip_heredoc)
         SELECT #{Whizbang.fields.join(', ')}
-        FROM #{Whizbang.table_name}
+        FROM #{sobject_table_name}
         WHERE Id = '#{sobject_id}'
       SOQL
     end
 
     it 'find the sobject id' do
       expect(query).to match(/where id = '#{sobject_id}'/i)
+    end
+
+    it 'find on the table_name' do
+      expect(query).to match(/from #{sobject_table_name}/i)
     end
   end
 end
