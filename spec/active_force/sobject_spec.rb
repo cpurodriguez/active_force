@@ -60,5 +60,11 @@ describe ActiveForce::SObject do
     it 'find the fields' do
       expect(query).to match(/select #{sobject_fields}/i)
     end
+
+    it 'find with only one field' do
+      first_field = sobject_fields.split(',').first
+      Whizbang.fields = [first_field]
+      expect(query).to match(/select #{first_field}/i)
+    end
   end
 end
