@@ -33,4 +33,19 @@ describe ActiveForce::SObject do
       end
     end
   end
+
+  describe ".soql_find" do
+    let(:sobject_hash) { YAML.load(fixture('sobject/single_sobject_hash')) }
+
+    it "containt a valid SOQL format" do
+      Whizbang.build sobject_hash
+      query = Whizbang.soql_find 1
+
+      expect(query).to include(<<-SOQL.strip_heredoc)
+        SELECT #{Whizbang.fields.join(', ')}
+        FROM #{Whizbang.table_name}
+        WHERE Id = '1'
+      SOQL
+    end
+  end
 end

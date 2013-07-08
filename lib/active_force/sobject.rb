@@ -1,6 +1,7 @@
 require 'active_model'
 require 'active_attr'
 require 'active_attr/dirty'
+require 'active_support/core_ext/string/strip'
 
 module ActiveForce
   class SObject
@@ -19,12 +20,16 @@ module ActiveForce
       model
     end
 
-    def self.find id
-      build Client.query(<<-SOQL.strip_heredoc).first
+    def self.soql_find id
+      <<-SOQL.strip_heredoc
         SELECT #{fields.join(', ')}
         FROM #{table_name}
         WHERE Id = '#{id}'
       SOQL
+    end
+
+    def self.find id
+      build Client.query(soql_find id).first
     end
 
     def update_attributes attributes
@@ -57,6 +62,10 @@ module ActiveForce
 
     def self.mappings
       @mappings ||= {}
+    end
+
+    def self.fields
+      @mappings.values
     end
   end
 end

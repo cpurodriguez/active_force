@@ -6,4 +6,6 @@ class Whizbang < ActiveForce::SObject
   field :datetime,             from: 'DateTime_Label'
   field :picklist_multiselect, from: 'Picklist_Multiselect_Label'
 
+  self.table_name = 'whizbang'
+
 end
