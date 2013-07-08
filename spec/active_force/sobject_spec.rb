@@ -35,17 +35,20 @@ describe ActiveForce::SObject do
   end
 
   describe ".soql_find" do
-    let(:sobject_hash) { YAML.load(fixture('sobject/single_sobject_hash')) }
+
+    let(:sobject_id)   { '6253juye524' }
+    let(:query)        { Whizbang.soql_find sobject_id }
 
     it "containt a valid SOQL format" do
-      Whizbang.build sobject_hash
-      query = Whizbang.soql_find 1
-
       expect(query).to include(<<-SOQL.strip_heredoc)
         SELECT #{Whizbang.fields.join(', ')}
         FROM #{Whizbang.table_name}
-        WHERE Id = '1'
+        WHERE Id = '#{sobject_id}'
       SOQL
+    end
+
+    it 'find the sobject id' do
+      expect(query).to match(/where id = '#{sobject_id}'/i)
     end
   end
 end
