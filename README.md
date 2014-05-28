@@ -1,5 +1,10 @@
-# ActiveForce [![Code Climate](https://codeclimate.com/github/eloyesp/active_force.png)](https://codeclimate.com/github/eloyesp/active_force)
-TODO: Write a gem description
+[![Gem Version](http://img.shields.io/gem/v/active_force.svg)](http://badge.fury.io/rb/active_force)
+[![Code Climate](http://img.shields.io/codeclimate/github/eloyesp/active_force.svg)](https://codeclimate.com/github/eloyesp/active_force)
+
+# ActiveForce
+
+A ruby gem to interact with SalesForce as if it were Active Record. It
+uses Restforce to interact with the API, so it is fast and stable.
 
 ## Installation
 
